@@ -27,14 +27,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.zerock.domain.UploadVO;
+import org.zerock.domain.BoardAttachVO;
 
 import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnailator;
 
 @Controller
 @Log4j
-public class uploadController {
+public class UploadController {
 
 	
 	
@@ -121,11 +121,11 @@ public class uploadController {
 	
 	@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<UploadVO>> uploadAjaxPost(MultipartFile[] uploadFile) {
+	public ResponseEntity<List<BoardAttachVO>> uploadAjaxPost(MultipartFile[] uploadFile) {
 		log.info("uploadFile : " +uploadFile[0].getOriginalFilename());
 								//배열0번쨰 사진의 진짜 이름
-		//여러개의파일을 선택(ArrayList)해서 파일정보들을 UploadVO에 저장
-		List<UploadVO> list = new ArrayList<>();
+		//여러개의파일을 선택(ArrayList)해서 파일정보들을 AttachFileDTO에 저장
+		List<BoardAttachVO> list = new ArrayList<>();
 		//실제 파일이 저장되는 경로
 		String uploadFolder = "C:\\upload\\";
 							  //어느곳에 파일을 올릴껀지.
@@ -147,7 +147,7 @@ public class uploadController {
 		//   multipartFile 일반변수(명이 와야함):uploadFile(배열/컬렉션타입이 와야함)  uploadFile의 배열을 가진 MultipartFile에 변수명을 multipartFile
 		for (MultipartFile multipartFile : uploadFile) {
 		//			uploadFile[i]값을 multipartFile 저장함
-			UploadVO attachDTO = new UploadVO();
+			BoardAttachVO attachDTO = new BoardAttachVO();
 			String uploadFileName = multipartFile.getOriginalFilename();
 			// IE 제외한 나머지 브라우저   ??
 
@@ -278,38 +278,38 @@ public class uploadController {
 	
 	
 	
-	@PostMapping("/deleteFile")
-	@ResponseBody
-	public ResponseEntity<String> deleteFile(String fileName, String type) {
-
-		log.info("deleteFile: " + fileName);
-
-		File file;
-
-		try {
-			file = new File("C:\\upload\\" + URLDecoder.decode(fileName, "UTF-8"));
-
-			file.delete();
-
-			if (type.equals("image")) {
-
-				String largeFileName = file.getAbsolutePath().replace("s_", "");
-
-				log.info("largeFileName: " + largeFileName);
-
-				file = new File(largeFileName);
-
-				file.delete();
-			}
-
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
-		return new ResponseEntity<String>("deleted", HttpStatus.OK);
-
-	}
+//	@PostMapping("/deleteFile")
+//	@ResponseBody
+//	public ResponseEntity<String> deleteFile(String fileName, String type) {
+//
+//		log.info("deleteFile: " + fileName);
+//
+//		File file;
+//
+//		try {
+//			file = new File("C:\\upload\\" + URLDecoder.decode(fileName, "UTF-8"));
+//
+//			file.delete();
+//
+//			if (type.equals("image")) {
+//
+//				String largeFileName = file.getAbsolutePath().replace("s_", "");
+//
+//				log.info("largeFileName: " + largeFileName);
+//
+//				file = new File(largeFileName);
+//
+//				file.delete();
+//			}
+//
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//		}
+//
+//		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+//
+//	}
 
 
 

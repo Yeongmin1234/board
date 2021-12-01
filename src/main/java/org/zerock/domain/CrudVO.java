@@ -12,5 +12,5 @@ public class CrudVO {
 	private	String text;   //내용
 	private String writer; //작성자
 	private Date date;	   //작성일자
-	private List<UploadVO> UploadList;
+	private List<BoardAttachVO> AttachList;
 }

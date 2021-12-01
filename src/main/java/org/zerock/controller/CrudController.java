@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.CrudVO;
-import org.zerock.domain.UploadVO;
+import org.zerock.domain.BoardAttachVO;
 import org.zerock.service.CrudService;
 
 import lombok.AllArgsConstructor;
@@ -66,16 +66,16 @@ public class CrudController {
 	//CRUD
 //================================================================
 	//Upload
-	@GetMapping(value="UploadList",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@GetMapping(value="getAttachList",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<UploadVO>> getAttachList (int bno){
-		return new ResponseEntity<>(service.getUploadList(bno),HttpStatus.OK);
+	public ResponseEntity<List<BoardAttachVO>> getAttachList (int bno){
+		return new ResponseEntity<>(service.getAttachList(bno),HttpStatus.OK);
 	}
 	
 
 	@PostMapping("/deleteFile")
 	@ResponseBody
-	public void deleteFile(List<UploadVO> attachList) {
+	public void deleteFile(List<BoardAttachVO> attachList) {
 		
 		if(attachList == null || attachList.size()==0) {
 			return;

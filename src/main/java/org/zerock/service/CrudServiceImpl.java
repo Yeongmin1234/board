@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.zerock.domain.CrudVO;
-import org.zerock.domain.UploadVO;
+import org.zerock.domain.BoardAttachVO;
 import org.zerock.mapper.CrudMapper;
-import org.zerock.mapper.UploadMapper;
+import org.zerock.mapper.BoardAttachMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -16,7 +16,7 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class CrudServiceImpl implements CrudService {
 	public CrudMapper mapper;
-	public UploadMapper umapper;
+	private BoardAttachMapper attachMapper;
 	
 	
 	@Override
@@ -29,14 +29,13 @@ public class CrudServiceImpl implements CrudService {
 		
 		mapper.create(vo);
 		
-		if(vo.getUploadList()==null || vo.getUploadList().size()<=0 ) {
+		if(vo.getAttachList()==null || vo.getAttachList().size()<=0 ) {
 			return;
 		}
-			
-		vo.getUploadList().forEach(attach->{
-				//파일정보           =UploadVO
-		attach.setBno(vo.getBno());
-		umapper.create(attach);
+			vo.getAttachList().forEach(attach->{
+					//파일정보           		  =BoardAttachVO
+				attach.setBno(vo.getBno());
+				attachMapper.insert(attach);
 			});
 	}
 	
@@ -56,7 +55,7 @@ public class CrudServiceImpl implements CrudService {
 		return mapper.delete(bno);
 	}
 
-	public List<UploadVO> getUploadList(int bno) {
-		return umapper.findBno(bno);
+	public List<BoardAttachVO> getAttachList(int bno) {
+		return attachMapper.findByBno(bno);
 	}
 }

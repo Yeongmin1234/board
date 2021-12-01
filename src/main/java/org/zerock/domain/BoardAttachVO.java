@@ -3,7 +3,7 @@ package org.zerock.domain;
 import lombok.Data;
 
 @Data
-public class UploadVO {
+public class BoardAttachVO {
 	private String uuid;//pk
 
 	private String uploadpath;//파일업로드 경로

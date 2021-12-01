@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.zerock.domain.CrudVO;
-import org.zerock.domain.UploadVO;
+import org.zerock.domain.BoardAttachVO;
 
 import lombok.Data;
 
@@ -14,5 +14,5 @@ public interface CrudService {
 	public CrudVO read(int bno);
 	public int update(CrudVO vo);
 	public int delete(int bno);
-	public List<UploadVO> getUploadList(int bno);
+	public List<BoardAttachVO> getAttachList(int bno);
 }
