@@ -27,7 +27,7 @@ import lombok.extern.log4j.Log4j;
 public class CrudController {
 	
 	public CrudService service;
-	
+	UploadController upload;
 	@GetMapping("list")
 	public void listNo(Model model) {
 		model.addAttribute("list", service.list());

@@ -12,8 +12,6 @@ public class BoardAttachVO {
 	
 	private String filetype;//이미지 파일 여부
 	
-	private boolean image;//이미지 파일 여부
-	
 	private int bno;//게시판 번호
 	
 }

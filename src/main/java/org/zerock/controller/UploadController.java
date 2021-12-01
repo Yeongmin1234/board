@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.zerock.domain.BoardAttachVO;
+import org.zerock.domain.AttachFileDTO;
 
 import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnailator;
@@ -121,11 +121,11 @@ public class UploadController {
 	
 	@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<BoardAttachVO>> uploadAjaxPost(MultipartFile[] uploadFile) {
+	public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile) {
 		log.info("uploadFile : " +uploadFile[0].getOriginalFilename());
 								//배열0번쨰 사진의 진짜 이름
 		//여러개의파일을 선택(ArrayList)해서 파일정보들을 AttachFileDTO에 저장
-		List<BoardAttachVO> list = new ArrayList<>();
+		List<AttachFileDTO> list = new ArrayList<>();
 		//실제 파일이 저장되는 경로
 		String uploadFolder = "C:\\upload\\";
 							  //어느곳에 파일을 올릴껀지.
@@ -147,7 +147,7 @@ public class UploadController {
 		//   multipartFile 일반변수(명이 와야함):uploadFile(배열/컬렉션타입이 와야함)  uploadFile의 배열을 가진 MultipartFile에 변수명을 multipartFile
 		for (MultipartFile multipartFile : uploadFile) {
 		//			uploadFile[i]값을 multipartFile 저장함
-			BoardAttachVO attachDTO = new BoardAttachVO();
+			AttachFileDTO attachDTO = new AttachFileDTO();
 			String uploadFileName = multipartFile.getOriginalFilename();
 			// IE 제외한 나머지 브라우저   ??
 
@@ -155,7 +155,7 @@ public class UploadController {
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
 													//마지막 \\뒤에 uploadFileName
 			log.info("only file name: " + uploadFileName);
-			attachDTO.setFilename(uploadFileName);
+			attachDTO.setFileName(uploadFileName);
 
 			
 			
@@ -171,7 +171,7 @@ public class UploadController {
 				
 				attachDTO.setUuid(uuid.toString());
 								//파일이름 앞에 붙을 uuid값
-				attachDTO.setUploadpath(uploadFolderPath);
+				attachDTO.setUploadPath(uploadFolderPath);
 										//파일 업로드 경로
 				// check image type file
 				if (checkImageType(saveFile)) { //이미지 파일 이면

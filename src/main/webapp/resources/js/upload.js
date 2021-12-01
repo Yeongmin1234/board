@@ -73,7 +73,7 @@ $(document).ready(function(e){
             
             showUploadResult(result);// 업로드 결과 처리 함수
       
-            $(".uploadDiv").html(cloneObj.html());
+            $(".uploadDiv").html(CloneObj.html());
          }
       }); //$.ajax
       
